@@ -1,0 +1,11 @@
+itemGroup.packagingprovider=封包供應器
+
+tile.packagingprovider.packaging_provider.name=ME 封包供應器
+tile.packagingprovider.packaging_provider.direct.false=不供應徑直配方
+tile.packagingprovider.packaging_provider.direct.true=供應徑直配方
+tile.packagingprovider.packaging_provider.packaging.false=不供應封包配方
+tile.packagingprovider.packaging_provider.packaging.true=供應封包配方
+tile.packagingprovider.packaging_provider.unpackaging.false=不供應解包配方
+tile.packagingprovider.packaging_provider.unpackaging.true=供應解包配方
+tile.packagingprovider.packaging_provider.no_holders=無可使用的封包配方儲存器
+tile.packagingprovider.packaging_provider.holder_present=已存在封包配方儲存器

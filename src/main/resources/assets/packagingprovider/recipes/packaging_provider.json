@@ -1,0 +1,32 @@
+{
+	"type": "forge:ore_shaped",
+	"result": {
+		"item": "packagingprovider:packaging_provider",
+		"count": 1
+	},
+	"pattern": [
+		"FPF",
+		"UEU",
+		"FIF"
+	],
+	"key": {
+		"P": {
+			"item": "packagedauto:packager"
+		},
+		"U": {
+			"item": "packagedauto:unpackager"
+		},
+		"E": {
+			"item": "appliedenergistics2:material",
+			"data": 24
+		},
+		"F": {
+			"item": "appliedenergistics2:material",
+			"data": 9
+		},
+		"I": {
+			"type": "forge:ore_dict",
+			"ore": "blockIron"
+		}
+	}
+}

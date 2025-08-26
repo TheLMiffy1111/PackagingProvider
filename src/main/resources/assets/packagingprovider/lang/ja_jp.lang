@@ -1,0 +1,11 @@
+itemGroup.packagingprovider=PackagingProvider
+
+tile.packagingprovider.packaging_provider.name=ME梱包プロバイダー
+tile.packagingprovider.packaging_provider.direct.false=直接レシピを提供しない
+tile.packagingprovider.packaging_provider.direct.true=直接レシピを提供する
+tile.packagingprovider.packaging_provider.packaging.false=梱包レシピを提供しない
+tile.packagingprovider.packaging_provider.packaging.true=梱包レシピを提供する
+tile.packagingprovider.packaging_provider.unpackaging.false=開梱レシピを提供しない
+tile.packagingprovider.packaging_provider.unpackaging.true=開梱レシピを提供する
+tile.packagingprovider.packaging_provider.no_holders=利用可能な梱包レシピホルダーがありません
+tile.packagingprovider.packaging_provider.holder_present=梱包レシピホルダーはすでにあります

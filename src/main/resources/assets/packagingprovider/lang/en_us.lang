@@ -1,0 +1,11 @@
+itemGroup.packagingprovider=PackagingProvider
+
+tile.packagingprovider.packaging_provider.name=ME Packaging Provider
+tile.packagingprovider.packaging_provider.direct.false=Not Providing Direct Recipes
+tile.packagingprovider.packaging_provider.direct.true=Providing Direct Recipes
+tile.packagingprovider.packaging_provider.packaging.false=Not Providing Packaging Recipes
+tile.packagingprovider.packaging_provider.packaging.true=Providing Packaging Recipes
+tile.packagingprovider.packaging_provider.unpackaging.false=Not Providing Unpackaging Recipes
+tile.packagingprovider.packaging_provider.unpackaging.true=Providing Unpackaging Recipes
+tile.packagingprovider.packaging_provider.no_holders=No Package Recipe Holders available
+tile.packagingprovider.packaging_provider.holder_present=Package Recipe Holder already present

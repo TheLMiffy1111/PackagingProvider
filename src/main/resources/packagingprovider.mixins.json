@@ -1,0 +1,15 @@
+{
+	"required": true,
+	"minVersion": "0.8",
+	"package": "thelm.packagingprovider.mixin",
+	"refmap": "packagingprovider.refmap.json",
+	"target": "@env(DEFAULT)",
+	"compatibilityLevel": "JAVA_8",
+	"mixins": [
+		"ItemPackageMixin",
+		"CraftingCPUClusterMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}

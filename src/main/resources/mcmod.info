@@ -1,0 +1,11 @@
+[
+	{
+		"modid": "packagingprovider",
+		"version": "0@VERSION@",
+		"name": "PackagingProvider",
+		"description": "A PackagedAuto addon that backports the ME Packaging Provider.",
+		"logoFile": "packagingprovider.logo.png",
+		"authorList": ["TheLMiffy1111"],
+		"url": "https://www.curseforge.com/minecraft/mc-mods/packagingprovider"
+	}
+]

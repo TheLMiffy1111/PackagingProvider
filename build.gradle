@@ -1,0 +1,227 @@
+plugins {
+	id "com.crystaelix.loom" version "1.10.0"
+	id "eclipse"
+	id "idea"
+	id "maven-publish"
+	id "net.kyori.blossom" version "[1,2)"
+	id "me.modmuss50.mod-publish-plugin" version "0.8.4"
+}
+
+repositories {
+	mavenCentral()
+	flatDir {
+		dirs "libs"
+	}
+	exclusiveContent {
+		forRepository {
+			maven {
+				url = "https://maven.crystaelix.com/releases/"
+			}
+		}
+		filter {
+			includeGroup "thelm.packagedauto"
+		}
+	}
+	exclusiveContent {
+		forRepository {
+			maven {
+				url = "https://maven.blamejared.com/"
+			}
+		}
+		filter {
+			includeGroup "mezz.jei"
+			includeGroup "vazkii.patchouli"
+		}
+	}
+	exclusiveContent {
+		forRepository {
+			maven {
+				url = "https://maven.gtceu.com/"
+			}
+		}
+		filter {
+			includeGroup "appeng"
+		}
+	}
+	exclusiveContent {
+		forRepository {
+			maven {
+				url = "https://maven.thorfusion.com/artifactory/central/"
+			}
+		}
+		filter {
+			includeGroup "mekanism"
+		}
+	}
+	exclusiveContent {
+		forRepository {
+			maven {
+				url = "https://repo.cleanroommc.com/releases/"
+			}
+		}
+		filter {
+			includeGroup "zone.rong"
+		}
+	}
+	exclusiveContent {
+		forRepository {
+			maven {
+				url = "https://cursemaven.com/"
+			}
+		}
+		filter {
+			includeGroup "curse.maven"
+		}
+	}
+}
+
+def mcVersion = "1.12.2"
+def modName = "PackagingProvider"
+def modId = "packagingprovider"
+def specVersion = "1"
+def vendor = "thelm"
+
+group = "thelm.packagingprovider"
+version = "1.0.0.0"
+
+archivesBaseName = "${modName}-${mcVersion}"
+
+sourceSets {
+	main {
+		output.resourcesDir = java.destinationDirectory = layout.buildDirectory.dir("outputs/main")
+	}
+}
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(8)
+		vendor = JvmVendorSpec.AZUL
+	}
+	withSourcesJar()
+}
+
+tasks.withType(JavaCompile).configureEach {
+	options.encoding = "UTF-8"
+}
+
+loom {
+	silentMojangMappingsLicense()
+	mixin.defaultRefmapName = "${modId}.refmap.json"
+	runs {
+		configureEach {
+			property "fabric.log.console.level", "debug"
+			environmentVariable "MC_VERSION", mcVersion
+		}
+		client {
+			programArg "--username=Dev"
+		}
+		server
+	}
+	generatedIntermediateMappings()
+}
+
+dependencies {
+	// Log4j
+	implementation "org.apache.logging.log4j:log4j-core:2.24.3"
+
+	// Minecraft
+	minecraft "com.mojang:minecraft:1.12.2"
+	mappings "de.oceanlabs.mcp:mcp_stable:39-1.12"
+	legacyForge "net.minecraftforge:forge:1.12.2-14.23.5.2860"
+
+	// Dependencies
+	implementation("zone.rong:mixinbooter:10.6") {transitive = false}
+	annotationProcessor("zone.rong:mixinbooter:10.6") {transitive = false}
+	modImplementation "thelm.packagedauto:PackagedAuto-1.12.2:1.0.23.71"
+	modImplementation "mezz.jei:jei_1.12.2:4.16.1.1013"
+	modImplementation("appeng:ae2-uel:v0.56.7") {transitive = false}
+	modImplementation "curse.maven:ae2-fluid-crafting-rework-623955:5751930"
+	modImplementation "vazkii.patchouli:Patchouli:1.0-23.6"
+
+	// Testing
+	modImplementation "curse.maven:cucumber-272335:2645867"
+	modImplementation "curse.maven:extended-crafting-268387:2777071"
+	modImplementation "mekanism:Mekanism-Community-Edition:1.12.2-9.12.11:ALL"
+	modImplementation "curse.maven:mekanism-energistics-1027681:5775101"
+
+	// Performance
+	modImplementation "curse.maven:reid-629017:6292779"
+	modImplementation "curse.maven:vintagefix-871198:6609247"
+	modImplementation "curse.maven:lolasm-460609:6333774"
+}
+
+def replacements = [
+	"0@VERSION@": version
+]
+
+blossom {
+	replaceToken(replacements)
+}
+
+processResources {
+	inputs.properties(replacements)
+	filesMatching(["mcmod.info", "META-INF/mods.toml", "META-INF/neoforge.mods.toml", "fabric.mod.json"]) {
+		filter {
+			it.replace(replacements)
+		}
+	}
+}
+
+def manifestAttributes = [
+	"Specification-Title": modName,
+	"Specification-Vendor": vendor,
+	"Specification-Version": specVersion,
+	"Implementation-Title": archivesBaseName,
+	"Implementation-Version": version,
+	"Implementation-Vendor": vendor
+]
+
+jar {
+	manifest.attributes(manifestAttributes)
+}
+
+sourcesJar {
+	manifest.attributes(manifestAttributes)
+}
+
+publishing {
+	publications {
+		register("mavenJava", MavenPublication) {
+			artifactId = archivesBaseName
+			artifact remapJar
+			artifact sourcesJar
+		}
+	}
+	repositories {
+		if(project.hasProperty("CrystaelixMavenUsername") && project.hasProperty("CrystaelixMavenPassword")) {
+			maven {
+				name = "CrystaelixMaven"
+				url = "https://maven.crystaelix.com/releases/"
+				credentials(PasswordCredentials)
+			}
+		}
+	}
+}
+
+publishMods {
+	file = remapJar.archiveFile
+	version = displayName = "${mcVersion}-${project.version}"
+	changelog = file("changelog.md").text
+	type = BETA
+	modLoaders.add("forge")
+	additionalFiles.from(sourcesJar.archiveFile)
+
+	curseforge {
+		accessToken = providers.gradleProperty("curseforge.token")
+		projectId = "1334934"
+		minecraftVersions.add(mcVersion)
+		requires "mixin-booter", "packagedauto", "applied-energistics-2"
+	}
+
+	modrinth {
+		accessToken = providers.gradleProperty("modrinth.token")
+		projectId = "zCi15aVM"
+		minecraftVersions.add(mcVersion)
+		requires "mixinbooter", "packagedauto", "ae2"
+	}
+}
