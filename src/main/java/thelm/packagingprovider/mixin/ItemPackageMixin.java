@@ -16,7 +16,7 @@ import thelm.packagingprovider.recipe.DirectCraftingPatternHelper;
 @Mixin(ItemPackage.class)
 public abstract class ItemPackageMixin implements IPackageItem {
 
-	@Inject(method = "getPatternForItem", at = @At("TAIL"), remap = false)
+	@Inject(method = "getPatternForItem", at = @At("TAIL"), remap = false, cancellable = true)
 	private void onGetPatternForItem(ItemStack stack, World world, CallbackInfoReturnable<ICraftingPatternDetails> ci) {
 		if(stack.hasTagCompound() && "direct".equals(stack.getTagCompound().getString("PatternType"))) {
 			IRecipeInfo recipe = getRecipeInfo(stack);
