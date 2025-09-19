@@ -1,1 +1,1 @@
-Initial release  
+Fix mixin cancelling  
