@@ -340,19 +340,19 @@ public class TilePackagingProvider extends TileBase implements ITickable, IPacka
 	public void provideCrafting(ICraftingProviderHelper craftingTracker) {
 		if(hostHelper.isActive()) {
 			if(provideDirect) {
-				recipeList.stream().filter(pattern->!pattern.getOutputs().isEmpty()).
-				map(pattern->new DirectCraftingPatternHelper(pattern)).
+				recipeList.stream().filter(IRecipeInfo::isCraftable).
+				map(DirectCraftingPatternHelper::new).
 				forEach(pattern->craftingTracker.addCraftingOption(this, pattern));
 			}
 			if(providePackaging) {
-				recipeList.stream().filter(IRecipeInfo::isValid).
+				recipeList.stream().filter(IRecipeInfo::isPackageable).
 				flatMap(recipe->Streams.concat(recipe.getPatterns().stream(), recipe.getExtraPatterns().stream())).
-				map(pattern->new PackageCraftingPatternHelper(pattern)).
+				map(PackageCraftingPatternHelper::new).
 				forEach(pattern->craftingTracker.addCraftingOption(this, pattern));
 			}
 			if(provideUnpackaging) {
-				recipeList.stream().filter(pattern->!pattern.getOutputs().isEmpty()).
-				map(pattern->new RecipeCraftingPatternHelper(pattern)).
+				recipeList.stream().filter(IRecipeInfo::isCraftable).
+				map(RecipeCraftingPatternHelper::new).
 				forEach(pattern->craftingTracker.addCraftingOption(this, pattern));
 			}
 		}

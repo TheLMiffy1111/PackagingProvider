@@ -22,7 +22,7 @@ public class PackagingProvider {
 	public static final String MOD_ID = "packagingprovider";
 	public static final String NAME = "PackagingProvider";
 	public static final String VERSION = "1.12.2-0@VERSION@";
-	public static final String DEPENDENCIES = "required:mixinbooter;required-after:packagedauto@[1.12.2-1.0.23,);required-after:appliedenergistics2;before:ae2fc";
+	public static final String DEPENDENCIES = "required:mixinbooter;required-after:packagedauto@[1.12.2-1.0.24,);required-after:appliedenergistics2;before:ae2fc";
 	public static final CreativeTabs CREATIVE_TAB = new CreativeTabs("packagingprovider") {
 		@SideOnly(Side.CLIENT)
 		@Override

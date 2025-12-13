@@ -20,7 +20,7 @@ public abstract class ItemPackageMixin implements IPackageItem {
 	private void onGetPatternForItem(ItemStack stack, World world, CallbackInfoReturnable<ICraftingPatternDetails> ci) {
 		if(stack.hasTagCompound() && "direct".equals(stack.getTagCompound().getString("PatternType"))) {
 			IRecipeInfo recipe = getRecipeInfo(stack);
-			if(recipe != null && recipe.isValid()) {
+			if(recipe != null && recipe.isCraftable()) {
 				ci.setReturnValue(new DirectCraftingPatternHelper(recipe));
 				return;
 			}
