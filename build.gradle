@@ -142,9 +142,9 @@ dependencies {
 	modImplementation "curse.maven:mekanism-energistics-1027681:5775101"
 
 	// Performance
-	modImplementation "curse.maven:reid-629017:7571353"
-	modImplementation "curse.maven:vintagefix-871198:6609247"
-	modImplementation "curse.maven:lolasm-460609:7267368"
+	modImplementation "curse.maven:reid-629017:7801299"
+	modImplementation "curse.maven:vintagefix-871198:7958801"
+	modImplementation "curse.maven:lolasm-460609:7671063"
 }
 
 def replacements = [
